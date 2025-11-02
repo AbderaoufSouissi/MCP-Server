@@ -1,3 +1,68 @@
 spring:
+
   application:
     name: mcp-server
+
+  main:
+    web-application-type: none
+    banner-mode: off
+    log-startup-info: false
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}  # default to 'dev' profile if not set
+
+
+  ai:
+    mcp:
+      server:
+        enabled: true
+        name: inventory-mcp-server
+        version: 1.0.0
+        type: sync
+        stdio: true
+        instructions: "This MCP server provides accurate information based on the user's inventory data."
+        capabilities:
+          tool: true
+          completion: false
+          prompt: false
+          resource: false
+
+
+
+
+
+
+  datasource:
+    url: ${SPRING_DB_URL}
+    username: ${SPRING_DB_USERNAME}
+    password: ${SPRING_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # options: none | validate | update | create | create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+server:
+  port: ${SERVER_PORT:8080}            # change if 8080 is used by Adminer
+
+
+logging:
+  level:
+    root: off
+    org.springframework: off
+    com.ars.mcp-server: off
+    com.hibernate: off
+
+
+  file:
+    name:
+    path:
+  pattern:
+    console:
